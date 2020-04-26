@@ -1,0 +1,17 @@
+---
+# handlers file for arillso.ntp
+
+- name: restart ntp
+  become: true
+  service:
+    name: '{{ ntp_service_name }}'
+    state: restarted
+
+- name: enabled ntp
+  become: true
+  service:
+    name: '{{ ntp_service_name }}'
+    enabled: true
+
+- name: update ntp config
+  win_shell: w32tm /config /update

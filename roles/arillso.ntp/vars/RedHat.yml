@@ -1,0 +1,6 @@
+---
+# vars file for arillso.ntp
+
+ntp_service_name: ntpd
+ntp_package_name: ntp
+ntp_config_driftfile: /var/lib/ntp/drift

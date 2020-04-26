@@ -1,0 +1,32 @@
+---
+galaxy_info:
+  author: arillso
+  description: Ansible role for installing NTP on Linux and Windows.
+  license: BSD
+  min_ansible_version: 2.7
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: Fedora
+      versions:
+        - 29
+    - name: Ubuntu
+      versions:
+        - bionic
+        - cosmic
+        - disco
+    - name: Debian
+      versions:
+        - jessie
+        - stretch
+        - buster
+    - name: Windows
+      versions:
+        - all
+
+  galaxy_tags:
+    - system
+
+dependencies: []

@@ -1,0 +1,29 @@
+---
+- name: Prepare
+  hosts: all
+  become: True
+  gather_facts: False
+  vars:
+    remote_ansible_user: ec2-user
+  tasks:
+    - name: install required base packages
+      yum:
+        name: ['shadow-utils', 'util-linux', 'net-tools', 'initscripts', 'sudo', 'git', 'unzip']
+        update_cache: yes
+        state: present
+
+    - name: Make sure we have a 'wheel' group
+      group:
+        name: wheel
+        state: present
+
+    - name: Allow 'wheel' group to have passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%wheel'
+        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+
+    - name: Add sudoers users to wheel group
+      user: name={{ remote_ansible_user }} groups=wheel append=yes state=present createhome=yes
