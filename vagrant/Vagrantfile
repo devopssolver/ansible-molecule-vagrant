@@ -5,10 +5,10 @@ Vagrant.configure("2") do |config|
     config.vm.boot_timeout = 600
     config.vm.graceful_halt_timeout = 600
   
-    # Create a forwarded port mapping which allows access to a specific port
-    # within the machine from a port on the host machine.
-    config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "msrdp", auto_correct: true
-    config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
-  
-    config.vm.provision "shell", path:"./ConfigureRemotingForAnsible.ps1"
+    config.vm.network "forwarded_port", guest: 3389, host: 9389
+    config.vm.network "forwarded_port", guest: 5985, host: 5985
+    
+    # path must be /mnt/c or /c/ since the shared folder needs to be DrvFs Mounted.
+    config.vm.provision "shell", path:"https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
+    config.vm.synced_folder ".", "/vagrant", disabled: true
   end
