@@ -1,7 +1,0 @@
----
-- name: Converge
-  hosts: all
-  tasks:
-    - name: "Include arillso.ntp"
-      include_role:
-        name: "arillso.ntp"
