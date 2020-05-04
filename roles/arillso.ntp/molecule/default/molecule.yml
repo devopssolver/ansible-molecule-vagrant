@@ -3,9 +3,31 @@ dependency:
   name: galaxy
 driver:
   name: vagrant
+  provider:
+    name: virtualbox
+    type: virtualbox
+    options:
+      memory: 2048
+      cpus: 2
 platforms:
-  - name: instance
+  - name: WindowServer2019
+    box: jborean93/WindowsServer2019
+    instance_raw_config_args:
+      - "winrm.timeout =   1800"
+      - "vm.boot_timeout = 1800" 
 provisioner:
   name: ansible
+  # config_options:
+  #   defaults:
+  #     local_tmp: /mnt/c/tmp
+  #     remote_tmp: /mnt/c/tmp
+  connection_options:
+    ansible_user: vagrant
+    ansible_password: vagrant
+    ansible_port: 55986
+    ansible_connection: winrm
+    ansible_winrm_transport: ntlm
+    ansible_shell_type: powershell
+    ansible_winrm_server_cert_validation: ignore
 verifier:
   name: ansible
