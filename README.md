@@ -1,5 +1,5 @@
 # Testing Ansible roles/playbooks with Vagrant
-Using molecule, Vagrant and virtualbox to test ansible 
+Using molecule, Vagrant and virtualbox to test ansible roles on Windows machines, designed to manage Windows Servers
 
 ## Getting Started
 
