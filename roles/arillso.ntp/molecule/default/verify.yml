@@ -4,6 +4,11 @@
 - name: Verify
   hosts: all
   tasks:
-  - name: Example assertion
+  - name: Check if winrm is installed
+    win_service:
+      name: winrm
+    register: service_info
+  - name: winrm is installed
     assert:
-      that: true
+      that: 
+        - service_info.exists

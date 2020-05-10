@@ -1,63 +1,33 @@
 ---
 dependency:
   name: galaxy
-  enabled: false
 driver:
   name: vagrant
   provider:
     name: virtualbox
-lint: yamllint
+    type: virtualbox
+    options:
+      memory: 2048
+      cpus: 2
 platforms:
-  - name: windows-2019
-    box: gusztavvargadr/windows-server
-    memory: 1024
-    cpus: 1
-    groups:
-      - windows
+  - name: WindowServer2019
+    box: jborean93/WindowsServer2019
+    instance_raw_config_args:
+      - "winrm.timeout =   1800"
+      - "vm.boot_timeout = 1800" 
 provisioner:
   name: ansible
-  inventory:
-    # host_vars:
-    #   windows-2019:
-    #     ansible_become: false
-    #     ansible_user: vagrant
-    #     ansible_password: vagrant
-    #     ansible_port: 55985
-    #     ansible_host: 127.0.0.1
-    #     ansible_connection: winrm
-    #     ansible_winrm_scheme: http
-    #     ansible_winrm_server_cert_validation: ignore
-    group_vars:
-      windows:
-        ansible_become: false
-        ansible_user: vagrant
-        ansible_password: vagrant
-        ansible_port: 55985
-        ansible_host: 127.0.0.1
-        ansible_connection: winrm
-        ansible_winrm_scheme: http
-        ansible_winrm_server_cert_validation: ignore
-  lint:
-    name: ansible-lint
-scenario:
-  name: default
-  destroy_sequence:
-    - destroy
-  create_sequence:
-    - create
-  test_sequence:
-    - lint
-    - syntax
-    - verify
-  converge_sequence:
-    - lint
-    - syntax
-    - create
-    - converge
-    - idempotence
-    # - verify
-    - destroy
+  # config_options:
+  #   defaults:
+  #     local_tmp: /mnt/c/tmp
+  #     remote_tmp: /mnt/c/tmp
+  connection_options:
+    ansible_user: vagrant
+    ansible_password: vagrant
+    ansible_port: 55986
+    ansible_connection: winrm
+    ansible_winrm_transport: ntlm
+    ansible_shell_type: powershell
+    ansible_winrm_server_cert_validation: ignore
 verifier:
-  name: testinfra
-  lint:
-    name: flake8
+  name: ansible
