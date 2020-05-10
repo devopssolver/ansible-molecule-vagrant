@@ -17,5 +17,5 @@ VirtualBox >= 6.1.6
 ```
 
 ### Installing and Running
-This repository is a part of the video tutorial on youtube: 
+This repository is a part of the video tutorial on youtube: https://youtu.be/FkBX7DXTDc0
 Please follow it to install and run the repo
